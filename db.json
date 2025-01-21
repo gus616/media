@@ -1,0 +1,8 @@
+{
+  "users": [
+    { "id": 50, "name": "Myra" },
+    { "id": 51, "name": "Megan" }
+  ],
+  "albums": [{ "id": 1, "title": "album #1", "userId": 50 }],
+  "photos": []
+}
