@@ -1,4 +1,5 @@
 import className from 'classnames';
+import { CgSpinnerAlt } from "react-icons/cg";
 
 
 type ButtonProps = {
@@ -11,6 +12,9 @@ type ButtonProps = {
   outline?: boolean;
   rounded?: boolean;
   className?: string;
+  onClick?: () => void;
+  disabled?: boolean;
+  isAddingUser?: boolean;
 }
 
 function Button({
@@ -44,7 +48,7 @@ function Button({
   );
 
   return (
-    <button {...rest} className={classes}>
+    <button className={classes} {...rest}>
       {children}
     </button>
   );

@@ -1,8 +1,24 @@
 {
   "users": [
-    { "id": 50, "name": "Myra" },
-    { "id": 51, "name": "Megan" }
+    {
+      "id": "50",
+      "name": "Myra"
+    },
+    {
+      "id": "5bb0",
+      "name": "Betsy Moore"
+    },
+    {
+      "id": "ca84",
+      "name": "Estelle Conn"
+    }
   ],
-  "albums": [{ "id": 1, "title": "album #1", "userId": 50 }],
+  "albums": [
+    {
+      "id": "1",
+      "title": "album #1",
+      "userId": 50
+    }
+  ],
   "photos": []
 }
