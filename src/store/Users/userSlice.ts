@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchUsers } from "../thunks/fetchUsers";
 import { addUser } from "../thunks/addUser";
 import { User } from "../../types";
+import { deleteUser } from "../thunks/deleteUser";
 
 type UserState = {
     isLoading: boolean,
@@ -46,6 +47,21 @@ export const usersSlice = createSlice({
 
         builder.addCase(addUser.rejected, (state: UserState, action) => {
             state.isLoading = false;
+            state.error = action.error.message;
+        });
+
+        builder.addCase(deleteUser.pending, (state: UserState) => {
+            state.isLoading = true;            
+        });
+
+        builder.addCase(deleteUser.fulfilled, (state: UserState, action) => {
+            state.isLoading = false;
+            if (state.data) {
+                state.data = state.data.filter(user => user.id !== action.payload.id);
+            }
+        });
+
+        builder.addCase(deleteUser.rejected, (state: UserState, action) => {
             state.error = action.error.message;
         });
     }

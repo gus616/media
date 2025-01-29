@@ -3,7 +3,7 @@ import { useAppDispatch } from './hooks';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useThunk = (thunk: any) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [error, setError] = useState<string | null>(null);
 

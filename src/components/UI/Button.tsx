@@ -1,4 +1,6 @@
+import { Dispatch } from '@reduxjs/toolkit';
 import className from 'classnames';
+import { SetStateAction } from 'react';
 import { CgSpinnerAlt } from "react-icons/cg";
 
 
@@ -26,6 +28,7 @@ function Button({
   danger,
   outline,
   rounded,
+  disabled,
   ...rest
 }: ButtonProps) {
   const classes = className(
@@ -48,7 +51,7 @@ function Button({
   );
 
   return (
-    <button className={classes} {...rest}>
+    <button className={classes} {...rest} disabled={disabled}>
       {children}
     </button>
   );
