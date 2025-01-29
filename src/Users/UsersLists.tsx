@@ -1,58 +1,45 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks"
+import { useEffect } from "react";
+import { useAppSelector } from "../hooks/hooks"
 import { fetchUsers } from "../store/thunks/fetchUsers";
 import { addUser } from "../store/thunks/addUser";
 import { User } from "../types";
 import UserCard from "./components/UserCard";
 import Button from "../components/UI/Button";
 import { CgSpinnerAlt } from "react-icons/cg";
+import useThunk from "../hooks/useThunk";
 
 const UsersLists = () => {
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [loadingUsersError, setLoadingUsersError] = useState<string | null>(null);
-  const [isAddingUser, setIsAddingUser] = useState(false);
-  const [isAddingUserError, setIsAddingUserError] = useState<string | null>(null);
+
+
+  const [doFetchUsers, isLoading, error] = useThunk(fetchUsers) as [() => void, boolean, string | null];
+
+  const [doCreateUser, isAddingUser, isAddingUserError, setIsAddingUserError] = useThunk(addUser) as [() => void, boolean, string | null, React.Dispatch<React.SetStateAction<string | null>>];
+
+
+  useEffect(() => {
+    if (typeof doFetchUsers === 'function') {
+      doFetchUsers();
+    }
+  }, [doFetchUsers])
+
 
   const { data } = useAppSelector(state => state.users);
 
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    setIsLoadingUsers(true);
-    dispatch(fetchUsers())
-      .unwrap()
-      .then(() => setIsLoadingUsers(false))
-      .catch((error) => {
-        setIsLoadingUsers(false);
-        setLoadingUsersError(error);
-      })
-
-  }, [dispatch])
 
   useEffect(() => {
     setTimeout(() => {
      if (isAddingUserError) {
        setIsAddingUserError(null)
      }
-    }, 2000);
-  }, [isAddingUserError])
+    }, 1000);
+  }, [isAddingUserError, setIsAddingUserError])
 
-  if (isLoadingUsers) return <CgSpinnerAlt className="animate-spin h-5 w-5 text-blue-500" />
+  if (isLoading) return <CgSpinnerAlt className="animate-spin h-5 w-5 text-blue-500" />
 
-  if (loadingUsersError) return <p>Ops something went wrong</p>
+  if (error) return <p>Ops something went wrong</p>
 
   const addUserHandler = () => {
-    // Add user logic here
-    setIsAddingUser(true);
-    dispatch(addUser())
-      .unwrap()
-      .then(() => setIsAddingUser(false))
-      .catch((error) => {
-        setIsAddingUser(false);
-        console.log(error);
-        setIsAddingUserError(error.message);
-      })
+    doCreateUser();
   }
 
   return (
