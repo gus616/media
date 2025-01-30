@@ -8,6 +8,7 @@ import Button from "../components/UI/Button";
 import { CgSpinnerAlt } from "react-icons/cg";
 import useThunk from "../hooks/useThunk";
 
+
 const UsersLists = () => {
 
 
@@ -43,7 +44,7 @@ const UsersLists = () => {
   }
 
   return (
-    <div className="max-w-700 min-w-500 mx-auto mt-10">
+    <div className="min-w-500 mx-auto mt-10">
          {
           isAddingUserError && <p className="text-red-500">{isAddingUserError}</p>
         }
