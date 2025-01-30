@@ -34,8 +34,12 @@ const UsersLists = () => {
      }
     }, 1000);
   }, [isAddingUserError, setIsAddingUserError])
-
-  if (isLoading) return <CgSpinnerAlt className="animate-spin h-5 w-5 text-blue-500" />
+  
+  if (isLoading) return (
+    <div className="flex justify-center items-center h-96">
+      <CgSpinnerAlt className="animate-spin h-20 w-20 text-blue-500" />
+    </div>
+  )
 
   if (error) return <p>Ops something went wrong</p>
 
