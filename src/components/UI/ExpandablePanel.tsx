@@ -13,23 +13,23 @@ const ExpandablePanel = ({ children, header }: ExpandablePanelProps) => {
 
 
   return (
-    <div className="mb-2 border rounded flex flex-col "onClick={() => setExpanded(!expanded)}>
-      <div className="flex p-2 justify-between items-center cursor-pointer">
-        <div className="flex flex-row items-center justify-between">
+    <div className="mb-2 border rounded flex flex-col ">
+      <div className="flex p-2 justify-between items-center cursor-pointer" onClick={() => setExpanded(!expanded)}>
+        <div className="flex flex-row items-center justify-between" >
           {header}
         </div>
-        <div >
+        <div>
           {expanded ? <GoChevronUp /> : <GoChevronDown />}
         </div>
 
-      
+
       </div>
 
       {
-          expanded && <div className="p-2 border-t">
-            {children}
-          </div>
-        }
+        expanded && <div className="p-2 border-t">
+          {children}
+        </div>
+      }
 
 
     </div>

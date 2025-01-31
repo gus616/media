@@ -5,12 +5,12 @@
       "name": "Sheri Cronin"
     },
     {
-      "id": "3aab",
-      "name": "Courtney Becker"
+      "id": "1fdb",
+      "name": "Angelina O'Connell III"
     },
     {
-      "id": "2f6c",
-      "name": "Melinda Cummerata"
+      "id": "6943",
+      "name": "Joseph Shanahan-Douglas"
     }
   ],
   "albums": [
@@ -18,6 +18,11 @@
       "id": "1",
       "title": "album #1",
       "userId": "c258"
+    },
+    {
+      "id": "59258",
+      "userId": "1fdb",
+      "title": "Angelina's journey to middle earth"
     }
   ],
   "photos": []

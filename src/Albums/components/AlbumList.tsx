@@ -1,5 +1,8 @@
-import { useGetAlbumsQuery } from "../../store/apis/albumsApis"
+import { CgSpinnerAlt } from "react-icons/cg"
+import { useCreateAlbumMutation, useGetAlbumsQuery } from "../../store/apis/albumsApis"
 import { User } from "../../types"
+import Modal from "../../components/UI/Modal"
+import { useRef, useState } from "react"
 
 
 type AlbumListsProps = {
@@ -7,17 +10,89 @@ type AlbumListsProps = {
 }
 
 const AlbumList = ({ user }: AlbumListsProps) => {
+  const { data, error, isFetching, refetch} = useGetAlbumsQuery(user);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const {data, error, isLoading} = useGetAlbumsQuery();
+  const mutation = useCreateAlbumMutation();
 
-  console.log(data);
-  console.log(error);
+  const [ createAlbum, result]= mutation;
+  const createAlbumError = result.error;
+  const isCreatingAlbum = result.isLoading;
 
-  if(isLoading) {
-    return <div>Loading...</div>
+
+  const albumRef = useRef<HTMLInputElement>(null);
+
+  const onSubmitHandler = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const albumName = albumRef.current?.value || '';
+
+    if (!albumName) return;
+
+    createAlbum({ id: (Math.floor(Math.random() * 100000) + 1).toString(), userId: user.id, title: albumName });
+
+    setIsModalOpen(false);
+
   }
+
   return (
-    <div>Albums List for {user.name}</div>
+    <div className="mt-10 flex flex-col items-center">
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+
+        <h2 className="text-xl font-bold mb-4">Album Add</h2>
+        <form onSubmit={onSubmitHandler}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            onChange={() => { }}
+            className="border p-2 w-full mb-2"
+            required
+            ref={albumRef}
+          />
+          <div className="flex flex-row space-x-2">
+            <button type="submit" className="bg-green-500 text-white p-2 w-full rounded mt-2" disabled={isCreatingAlbum} >
+              Submit
+            </button>
+            <button onClick={() => setIsModalOpen(false)} className="bg-red-500 text-white p-2 w-full rounded mt-2">
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        {createAlbumError && <p>Ops something went wrong</p>}
+      </Modal>
+      {isFetching ? <CgSpinnerAlt className="animate-spin h-20 w-20 text-teal-500" /> :
+        <div className="w-full">
+          <div className="flex justify-end w-full mb-5">
+            <button className="text-white bg-gray-500 px-2 py-1 rounded-md" onClick={() => setIsModalOpen(true)}>Add Album</button>
+          </div>
+          {
+            error ? <p>Ops something went wrong</p> :
+              <div>
+
+
+
+                {
+                  data?.length === 0 && <p>No albums found</p>
+                }
+
+                {
+                  data?.length !== 0 && <div className="grid grid-cols-3 gap-4">
+
+                    {data?.map(album => (
+                      <div key={album.id} className="bg-gray-100 p-4 rounded-md">
+                        <h1 className="text-lg text-teal-500">{album.title}</h1>
+                      </div>
+                    ))}
+                  </div>
+                }
+
+              </div>
+          }
+        </div>
+      }
+    </div>
   )
 }
 

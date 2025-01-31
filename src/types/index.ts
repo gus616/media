@@ -1,12 +1,12 @@
 export type User = {
-    id: number,
+    id: string,
     name: string,
 }
 
 export type Album ={
-    id: number,
+    id: string,
     title: string,
-    userId: number,
+    userId: string,
 }
 
 export type Photo = {
