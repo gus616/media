@@ -10,12 +10,12 @@ type AlbumListsProps = {
 }
 
 const AlbumList = ({ user }: AlbumListsProps) => {
-  const { data, error, isFetching, refetch} = useGetAlbumsQuery(user);
+  const { data, error, isFetching } = useGetAlbumsQuery(user);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const mutation = useCreateAlbumMutation();
 
-  const [ createAlbum, result]= mutation;
+  const [createAlbum, result] = mutation;
   const createAlbumError = result.error;
   const isCreatingAlbum = result.isLoading;
 

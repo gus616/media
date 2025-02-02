@@ -1,14 +1,17 @@
 
 import "./App.css";
+import Navbar from "./components/UI/Navbar";
 import UsersLists from "./Users/UsersLists";
 
 function App() {
   return (
-    <div className="container mx-auto w-lg mt-10">
+    <>
+      <Navbar />
+      <div className="container mx-auto w-lg mt-10">
+        <UsersLists />
+      </div>
+    </>
 
-      <h1 className="text-2xl text-teal-500 text-left">Media App</h1>
-      <UsersLists />  
-    </div>
   );
 }
 
