@@ -17,12 +17,7 @@ export const albumsApi = createApi({
         };
       },
       providesTags: (result, error, user) =>
-        result
-          ? [
-              ...result.map(({ id }) => ({ type: 'Album', id } as const)),
-              { type: 'Album', id: `USER_${user.id}` },
-            ]
-          : [{ type: 'Album', id: `USER_${user.id}` }],
+        [{ type: 'Album', id: `USER_${user.id}` }],
     }),
     createAlbum: builder.mutation<Album, Album>({
       query: (body) => ({
@@ -32,12 +27,12 @@ export const albumsApi = createApi({
       }),
       invalidatesTags: (result, error, { userId }) => [{ type: 'Album', id: `USER_${userId}` }],
     }),
-    removeAlbum: builder.mutation<Album, number>({
-      query: (id) => ({
+    removeAlbum: builder.mutation<Album, Album>({
+      query: ({ id }) => ({
         url: `albums/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Album', id }],
+      invalidatesTags: (result, error, { userId }) => [{ type: 'Album', id: `USER_${userId}` }],
     }),
   }),
 });

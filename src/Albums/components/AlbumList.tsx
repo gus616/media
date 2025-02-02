@@ -3,6 +3,7 @@ import { useCreateAlbumMutation, useGetAlbumsQuery } from "../../store/apis/albu
 import { User } from "../../types"
 import Modal from "../../components/UI/Modal"
 import { useRef, useState } from "react"
+import AlbumItem from "./AlbumItem"
 
 
 type AlbumListsProps = {
@@ -70,24 +71,17 @@ const AlbumList = ({ user }: AlbumListsProps) => {
           {
             error ? <p>Ops something went wrong</p> :
               <div>
-
-
-
                 {
                   data?.length === 0 && <p>No albums found</p>
                 }
-
                 {
                   data?.length !== 0 && <div className="grid grid-cols-3 gap-4">
 
                     {data?.map(album => (
-                      <div key={album.id} className="bg-gray-100 p-4 rounded-md">
-                        <h1 className="text-lg text-teal-500">{album.title}</h1>
-                      </div>
+                      <AlbumItem key={album.id} album={album} />
                     ))}
                   </div>
                 }
-
               </div>
           }
         </div>
