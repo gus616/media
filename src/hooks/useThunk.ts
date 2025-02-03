@@ -9,17 +9,20 @@ const useThunk = (thunk: any) => {
 
   const dispatch = useAppDispatch();
 
-  const runThunk = useCallback(() => {
-    setIsLoading(true);
-    dispatch(thunk())
-      .unwrap()
-      .then(() => setIsLoading(false))
-      .catch((error: string) => {
+  const runThunk = useCallback(
+    // Accept optional arguments
+    async (...args: any[]) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        await dispatch(thunk(...args)).unwrap();
+      } catch (error: any) {
+        setError(error.message || 'An error occurred');
+      } finally {
         setIsLoading(false);
-        setError(error);
-      })
-      .finally(() => setIsLoading(false));
-  }, [dispatch, thunk]);
+      }
+    },
+    [dispatch, thunk]);
 
   return [runThunk, isLoading, error, setError];
 };

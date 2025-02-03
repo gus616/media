@@ -13,8 +13,9 @@
       "name": "Freda Ward"
     },
     {
-      "id": "6971",
-      "name": "Timothy Boyle"
+      "id": "2751",
+      "name": "Gus",
+      "age": 35
     }
   ],
   "albums": [
@@ -37,6 +38,11 @@
       "id": "63928",
       "userId": "86fe",
       "title": "second album"
+    },
+    {
+      "id": "58278",
+      "userId": "2751",
+      "title": "Memories"
     }
   ],
   "photos": []
