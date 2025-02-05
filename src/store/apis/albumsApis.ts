@@ -3,13 +3,13 @@ import { Album, User } from '../../types';
 
 export const albumsApi = createApi({
   reducerPath: 'albums',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3005' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5293/api' }),
   tagTypes: ['Album'],
   endpoints: (builder) => ({
     getAlbums: builder.query<Album[], User>({
       query: (user: User) => {
         return {
-          url: 'albums',
+          url: 'Album',
           params: {
             userId: user.id,
           },
