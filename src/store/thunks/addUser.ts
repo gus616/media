@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { User } from "../../types";
 import axios from "axios";
-import { faker } from "@faker-js/faker";
-const addUser = createAsyncThunk('users/addUser', async({ name, age }: { name: string, age: number }) => {
+const addUser = createAsyncThunk('users/addUser', async({ name, email, age }: { name: string, email: string, age: number }) => {
     await new Promise(resolve => setTimeout(resolve, 500));
-    const response = await axios.post<User>("http://localhost:3005/users", {
+    const response = await axios.post<User>("http://localhost:5293/api/User", {
         name: name,
+        email: email,
         age: age,
     });
 

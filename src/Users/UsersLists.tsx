@@ -45,12 +45,12 @@ const UsersLists = () => {
 
   if (error) return <p>Ops something went wrong</p>
 
-  const addUserHandler = (name: string, age: number) => {
-    console.log(name, age);
+  const addUserHandler = (name: string, email:string, age: number) => {
+  
 
     setIsOpen(false);
     // @ts-ignore
-    doCreateUser({ name, age });
+    doCreateUser({ name,email, age });
   }
 
   return (
