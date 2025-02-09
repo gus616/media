@@ -21,7 +21,7 @@ export const albumsApi = createApi({
     }),
     createAlbum: builder.mutation<Album, Album>({
       query: (body) => ({
-        url: 'albums',
+        url: 'Album',
         method: 'POST',
         body,
       }),
@@ -29,7 +29,7 @@ export const albumsApi = createApi({
     }),
     removeAlbum: builder.mutation<Album, Album>({
       query: ({ id }) => ({
-        url: `albums/${id}`,
+        url: `Album/${id}`, 
         method: 'DELETE',
       }),
       invalidatesTags: (result, error, { userId }) => [{ type: 'Album', id: `USER_${userId}` }],
