@@ -6,6 +6,7 @@ const Navbar = () => {
         <div className="container mx-auto flex items-center">
             <CgAbstract className="text-white text-3xl mr-2"/>
             <h1 className="text-white text-2xl font-bold">Mediafy</h1>
+            <button className="text-white text-2xl ml-auto" onClick={() => console.log('Navbar closed')}>X</button>
         </div>
     </nav>
   )

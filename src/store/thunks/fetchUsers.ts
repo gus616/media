@@ -8,19 +8,16 @@ const fetchUsers = createAsyncThunk<User[], void>(
     async()  => {
         const response = await axios.get<User[]>('http://localhost:5293/api/User');
 
-        //DEV ONLY
-        await pause(1000);
-
         return response.data;
     }
 );
 
-const pause = (duration: number) => {
+/* const pause = (duration: number) => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(null);
         }, duration)
     })
-}
+} */
 
 export { fetchUsers };

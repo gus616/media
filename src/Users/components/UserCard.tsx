@@ -8,10 +8,11 @@ import ExpandablePanel from "../../components/UI/ExpandablePanel";
 import AlbumList from "../../Albums/components/AlbumList";
 
 type UserCardProps = {
-    user: User
+    user: User,
+    doFetchUsers: () => void
 }
 
-const UserCard = ({ user }: UserCardProps) => {
+const UserCard = ({ user, doFetchUsers }: UserCardProps) => {
     const dispatch = useAppDispatch();
 
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -20,12 +21,18 @@ const UserCard = ({ user }: UserCardProps) => {
         setIsDeleting(true);
         dispatch(deleteUser(id))
             .unwrap()
-            .then(() => setIsDeleting(false))
+            .then(() => {
+                setIsDeleting(false);
+                doFetchUsers();
+            })
+            .catch(() => {
+                setIsDeleting(false);
+            });    
     }
 
     const header = <>
 
-        <button onClick={() => deleteHandler(user.id)} disabled={isDeleting} className="mr-2">
+        <button onClick={() => deleteHandler(+user.id)} disabled={isDeleting} className="mr-2">
             {
                 isDeleting ? <CgSpinnerAlt className="animate-spin h-5 w-5 text-red-500 mx-auto" /> : <GoTrash className="h-5 w-5 text-red-500" />
             }

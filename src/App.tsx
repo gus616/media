@@ -6,7 +6,7 @@ import UsersLists from "./Users/UsersLists";
 import { useEffect } from "react";
 
 function App() {
-  const notify = () => toast("Wow so easy!");
+  const notify = () => toast("🚀 Welcome to MediaFy");
 
   useEffect(() => {
     notify();

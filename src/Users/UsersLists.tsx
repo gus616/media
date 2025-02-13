@@ -15,6 +15,8 @@ const UsersLists = () => {
   const [doCreateUser, isAddingUser, isAddingUserError, setIsAddingUserError] = useThunk(addUser) as [() => void, boolean, string | null, React.Dispatch<React.SetStateAction<string | null>>];
   const [isOpen, setIsOpen] = useState(false);
 
+
+
   useEffect(() => {
     if (typeof doFetchUsers === 'function') {
       doFetchUsers();
@@ -42,8 +44,7 @@ const UsersLists = () => {
   const addUserHandler = async (name: string, email: string, age: number) => {
     setIsOpen(false);
     // @ts-ignore
-    await doCreateUser({ name, email, age });
-    doFetchUsers(); // Refetch users after creating a new one
+    await doCreateUser({ name, email, age })
   };
 
   return (
@@ -65,7 +66,7 @@ const UsersLists = () => {
       </div>
       <ul>
         {
-          data?.map((item: User) => <UserCard key={item.id} user={item} />)
+          data?.map((item: User) => <UserCard key={item.id} user={item} doFetchUsers={doFetchUsers} />)
         }
       </ul>
     </div>

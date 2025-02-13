@@ -25,7 +25,6 @@ const addUser = createAsyncThunk(
       .catch((error) => {
         const { data } = error.response;
 
-        console.log('Error adding user: ', data);
 
         let errorMessage = 'Failed to add user:';
 
@@ -33,13 +32,17 @@ const addUser = createAsyncThunk(
           errorMessage += ` ${error.errorMessage}`;
         });
 
-        toast.error(errorMessage);
+        toast.error(errorMessage, {
+            position: 'bottom-right',
+        });
 
         return null;
       });
 
     if (response) {
-      toast.success('User added successfully');
+      toast.success('User added successfully', {
+        position: 'bottom-right',
+      });
       return response.data;
     } else {
       throw new Error('Failed to add user');
