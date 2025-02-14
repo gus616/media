@@ -4,6 +4,7 @@ import "./App.css";
 import Navbar from "./components/UI/Navbar";
 import UsersLists from "./Users/UsersLists";
 import { useEffect } from "react";
+import { CgAbstract } from "react-icons/cg";
 
 function App() {
   const notify = () => toast("🚀 Welcome to MediaFy");
@@ -13,7 +14,7 @@ function App() {
   }, []);
   return (
     <>
-      <Navbar />
+      <Navbar title='Mediafy' Icon={CgAbstract} />
       <div className="container mx-auto w-lg mt-10">
         <UsersLists />
         <ToastContainer />
