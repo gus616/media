@@ -82,7 +82,7 @@ const Login = () => {
                 </form>
                 {isError && (
                     <p className="text-red-500 mt-2">
-                        Error: {'data' in error ? (error.data as { message: string }).message : error?.message}
+                        Error: {'data' in error ? (error.data as { message: string }).message : 'error' in error ? error.error : error?.message}
                     </p>
                 )}
 
