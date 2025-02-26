@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import SignUpBg from '../../assets/images/signupbg.jpg';
-import { Link } from "react-router-dom"; // Updated import
+import { Link, useNavigate } from "react-router-dom"; // Updated import
 import { useSignUpMutation } from "../../services/authApi";
 import { CgSpinnerAlt } from "react-icons/cg";
+import { useAppDispatch } from "../../hooks/hooks";
+import { setToken } from "../../store/Auth/AuthSlice";
 
 const SignUp = () => {
     const [signUp, { isLoading, error, isError }] = useSignUpMutation();
@@ -11,6 +13,8 @@ const SignUp = () => {
     const fullNameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const gradients = [
@@ -62,7 +66,9 @@ const SignUp = () => {
                 password: passwordRef.current?.value as string
             }).unwrap();
 
-            console.log(response);
+            dispatch(setToken(response.token));
+            navigate('/users');    
+            
         } catch (err) {
             console.error('Error during sign up:', err);
         }
