@@ -51,6 +51,10 @@ const SignUp = () => {
             <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
                 <form onSubmit={submitHandler}>
                     <div className="mb-4 flex flex-col p-2 justify-normal">
+                        <label htmlFor="name" className="mb-2">Full name</label>
+                        <input type="text" id="name" name="name" className="bg-pink-200 rounded-lg p-2 shadow-md" />
+                    </div>
+                    <div className="mb-4 flex flex-col p-2 justify-normal">
                         <label htmlFor="email" className="mb-2">Email</label>
                         <input type="text" id="email" name="email" className="bg-pink-200 rounded-lg p-2 shadow-md" />
                     </div>
