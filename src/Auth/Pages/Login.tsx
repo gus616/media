@@ -3,7 +3,11 @@ import LoginBg from '../../assets/images/loginbg.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../services/authApi';
 import { toast, ToastContainer } from 'react-toastify';
+import { useAppDispatch } from '../../hooks/hooks';
+import { setToken } from '../../store/Auth/AuthSlice';
 const Login = () => {
+    const dispatch = useAppDispatch();
+
     const navigate = useNavigate();
     const [login, { isLoading, isError, error }] = useLoginMutation();
     
@@ -25,9 +29,8 @@ const Login = () => {
 
 
         try {
-            const response = await login({ email, password }).unwrap()
-            console.log(response);
-            localStorage.setItem('token', response.token);
+            const response = await login({ email, password }).unwrap()        
+            dispatch(setToken(response.token));
             navigate('/users');
         }
         catch (err) {

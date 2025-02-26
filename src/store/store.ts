@@ -3,10 +3,12 @@ import { usersReducer } from "./Users/userSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { albumsApi } from "./apis/albumsApis";
 import { authApi } from "../services/authApi";
+import authReducer from "./Auth/AuthSlice";
 
 export const store = configureStore({
     reducer: {
         users: usersReducer,
+        auth: authReducer,
         [albumsApi.reducerPath]: albumsApi.reducer,
         [authApi.reducerPath]: authApi.reducer,
     },
