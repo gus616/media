@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router";
 import Login from "../Auth/Pages/Login";
 import Users from "../Users/Pages/Users";
 import { useAppSelector } from "../hooks/hooks";
+import SignUp from "../Auth/Pages/SignUp";
 
 
 type ProtectedRouteProps = {
@@ -20,6 +21,7 @@ export const Router = () => {
 
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/users" element={<ProtectedRoute component={Users} />} />
     </Routes>
   );

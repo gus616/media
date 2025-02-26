@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import LoginBg from '../../assets/images/loginbg.jpg';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../services/authApi';
 import { toast, ToastContainer } from 'react-toastify';
 import { useAppDispatch } from '../../hooks/hooks';
@@ -89,6 +89,7 @@ const Login = () => {
                     </p>
                 )}
 
+                <p className="mt-4">Don't have an account? <Link to="/signup" className="text-blue-500">Sign Up</Link></p>
             </div>
  
         </div>
