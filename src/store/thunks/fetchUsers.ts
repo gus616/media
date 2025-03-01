@@ -6,7 +6,7 @@ import { User } from "../../types";
 const fetchUsers = createAsyncThunk<User[], void>(
     'users/fetchByIdStatus',
     async()  => {
-        const response = await axios.get<User[]>('http://localhost:5293/api/User');
+        const response = await axios.get<User[]>('http://localhost:5293/api/User/GetUsers');
 
         return response.data;
     }
