@@ -14,6 +14,10 @@ export const albumsApi = createApi({
             userId: user.id,
           },
           method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
         };
       },
       providesTags: (result, error, user) =>
@@ -24,6 +28,10 @@ export const albumsApi = createApi({
         url: 'Album',
         method: 'POST',
         body,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
       }),
       invalidatesTags: (result, error, { userId }) => [{ type: 'Album', id: `USER_${userId}` }],
     }),
@@ -31,6 +39,10 @@ export const albumsApi = createApi({
       query: ({ id }) => ({
         url: `Album/${id}`, 
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
       }),
       invalidatesTags: (result, error, { userId }) => [{ type: 'Album', id: `USER_${userId}` }],
     }),

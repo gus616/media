@@ -6,7 +6,15 @@ import { User } from "../../types";
 const fetchUsers = createAsyncThunk<User[], void>(
     'users/fetchByIdStatus',
     async()  => {
-        const response = await axios.get<User[]>('http://localhost:5293/api/User/GetUsers');
+        const response = await axios.get<User[]>('http://localhost:5293/api/User/GetUsers',
+
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+        );
 
         return response.data;
     }
