@@ -1,5 +1,6 @@
 import { IconType } from "react-icons"
-import { useNavigate } from "react-router"
+import { useAppDispatch } from "../../hooks/hooks"
+import { logout } from "../../store/Auth/AuthSlice"
 
 type NavbarProps = {
   title: string,
@@ -8,10 +9,13 @@ type NavbarProps = {
 }
 
 const Navbar = ({ title, Icon, IconStyles = "container mx-auto flex items-center" }: NavbarProps) => {
-  const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+
+
+
   const handleNavbarClose = () => {
-    console.log('Navbar closed')
-    navigate('/'); // Redirect to the home page
+    dispatch(logout());
   };
 
   return (
