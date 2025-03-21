@@ -1,5 +1,6 @@
 import { useRemoveAlbumMutation } from '../../store/apis/albumsApis'
 import { Album } from '../../types'
+import PhotoList from './PhotoList'
 
 type AlbumProps = {
     album: Album
@@ -24,6 +25,7 @@ const AlbumItem = ({ album }: AlbumProps) => {
                 <span className="text-white font-bold">X</span>
             </button>
             <h1 className="text-lg text-teal-500">{album.title}</h1>
+            <PhotoList  />
         </div>
     )
 }

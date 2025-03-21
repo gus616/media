@@ -4,6 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { albumsApi } from "./apis/albumsApis";
 import { authApi } from "../services/authApi";
 import authReducer from "./Auth/AuthSlice";
+import { photosApi } from "./apis/photosApis";
 
 export const store = configureStore({
     reducer: {
@@ -11,9 +12,10 @@ export const store = configureStore({
         auth: authReducer,
         [albumsApi.reducerPath]: albumsApi.reducer,
         [authApi.reducerPath]: authApi.reducer,
+        [photosApi.reducerPath]: photosApi.reducer,
     },
     middleware: (getDefaultMiddleware) => 
-        getDefaultMiddleware().concat(albumsApi.middleware, authApi.middleware),
+        getDefaultMiddleware().concat(albumsApi.middleware, authApi.middleware, photosApi.middleware),
     
     
 });
