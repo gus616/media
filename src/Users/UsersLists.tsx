@@ -61,7 +61,13 @@ const UsersLists = () => {
           isAddingUser && <CgSpinnerAlt className="animate-spin h-5 w-5 text-blue-500 mx-auto" />
         }
         {
-          !isAddingUser && <Button onClick={() => setIsOpen(true)} disabled={isAddingUser} className="mb-10">+ Add User</Button>
+          <Button 
+            onClick={() => setIsOpen(true)} 
+            disabled={isAddingUser} 
+            className="mb-10 bg-teal-500 p-2 text-white rounded-lg hover:bg-teal-600"
+          >
+            + Add User
+          </Button>
         }
       </div>
       <ul>
