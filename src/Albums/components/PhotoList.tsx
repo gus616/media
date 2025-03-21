@@ -1,39 +1,30 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useGetPhotosQuery } from '../../store/apis/photosApis'
 import { Photo } from '../../types';
+import { CgSpinnerAlt } from 'react-icons/cg';
 
 type PhotoListProps = {
     albumId: number
 }
 
 const PhotoList = ({ albumId }: PhotoListProps) => {
-    const {data, isLoading, error } = useGetPhotosQuery({ albumId });
-
-    const [photos, setPhotos] = useState<Photo[]>([]);
-
-    
-
-    useEffect(() => {
-        if (data) {
-            setPhotos(data);
-        }
-    }, [data]);
+    const {data: photos, isLoading, error } = useGetPhotosQuery({ albumId });
 
 
-    const memoizedPhotos = useMemo(() => photos, [photos]);
+    const memoizedPhotos = useMemo(() => {
+        return photos || [];
+    }, [photos]);
 
 
-    if(isLoading) return <div>Loading...</div>
+    if(isLoading) return  <CgSpinnerAlt className="animate-spin h-20 w-20 text-teal-500" /> 
 
     if(error) return <div>Error: Could not show photos</div>
 
-    return (
-        <div className='flex flex-row flex-wrap'>
-            {
-                memoizedPhotos.length === 0 && <div>No photos found</div>
-            }
+    if(!photos) return <div>No photos found</div>
 
-            {memoizedPhotos.map(photo => (
+    return (
+        <div className='flex flex-row flex-wrap'>       
+            {memoizedPhotos.map((photo: Photo) => (
                 <div key={photo.id} className="m-2">
                     <img src={photo.url} alt={`photo${photo.id}`} className="max-w-full max-h-20" />
                 </div>
