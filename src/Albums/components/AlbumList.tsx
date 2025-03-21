@@ -70,12 +70,12 @@ const AlbumList = ({ user }: AlbumListsProps) => {
           </div>
           {
             error ? <p>Ops something went wrong</p> :
-              <div>
+              <div className="w-full">
                 {
                   data?.length === 0 && <p>No albums found</p>
                 }
                 {
-                  data?.length !== 0 && <div className="grid grid-cols-3 gap-4">
+                  data?.length !== 0 && <div className="grid grid-cols-1 gap-7">
 
                     {data?.map(album => (
                       <AlbumItem key={album.id} album={album} />
