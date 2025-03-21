@@ -9,7 +9,7 @@ const Login = () => {
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
-    const [login, { isLoading, isError, error }] = useLoginMutation();
+    const [login, { isLoading, isError }] = useLoginMutation();
     
     useEffect(() => {
         if (isError) {
@@ -83,11 +83,11 @@ const Login = () => {
                         disabled={isLoading}
                     >Login</button>
                 </form>
-                {isError && (
+         {/*        {isError && (
                     <p className="text-red-500 mt-2">
                         Error: {'data' in error ? (error.data as { message: string }).message : 'error' in error ? error.error : error?.message}
                     </p>
-                )}
+                )} */}
 
                 <p className="mt-4">Don't have an account? <Link to="/signup" className="text-blue-500">Sign Up</Link></p>
             </div>

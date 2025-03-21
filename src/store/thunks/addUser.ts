@@ -20,6 +20,11 @@ const addUser = createAsyncThunk(
         name: name,
         email: email,
         age: age,
+      },{
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       })
       .then((response) => response)
       .catch((error) => {
