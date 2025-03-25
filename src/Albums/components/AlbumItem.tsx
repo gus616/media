@@ -1,9 +1,10 @@
-import { createRef, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import ExpandablePanel from '../../components/UI/ExpandablePanel'
 import { useRemoveAlbumMutation } from '../../store/apis/albumsApis'
 import { Album } from '../../types'
 import PhotoList from './PhotoList'
 import Modal from '../../components/UI/Modal'
+import { useAddPhotoMutation, useUploadPhotoMutation } from '../../store/apis/photosApis'
 
 type AlbumProps = {
     album: Album
@@ -13,10 +14,14 @@ type AlbumProps = {
 const AlbumItem = ({ album }: AlbumProps) => {
 
     const mutation = useRemoveAlbumMutation();
+    const mutationUpload = useUploadPhotoMutation();
+    const mutationSavePhoto = useAddPhotoMutation();
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
     const [isUploadModalOpen, setIsUploadModalOpen] = useState<boolean>(false);
     const fileUploaderRef = useRef<HTMLInputElement>(null);
     const [removeAlbum, result] = mutation;
+    const [uploadPhoto, resultUpload] = mutationUpload;
+    const [savePhoto, resultSavePhoto] = mutationSavePhoto;
 
 
     const deleteAlbum = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -26,13 +31,30 @@ const AlbumItem = ({ album }: AlbumProps) => {
             .catch(() => setIsDeleteModalOpen(false));
     }
 
-    const uploadPhotoHandler = (e: React.FormEvent<HTMLFormElement>): void => {
+    const uploadPhotoHandler = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         console.log('uploading photo')
         console.log(fileUploaderRef.current?.files);
 
+        // upload photo
+
+        if(fileUploaderRef.current?.files) {
+            const uploadResponse = await uploadPhoto({
+                file: fileUploaderRef.current.files[0]
+            }).unwrap();
+            
+            // save photo
+            const saveResponse = await savePhoto({
+                album,
+                url: uploadResponse.url,
+                description: 'Uploaded photo',                
+            });
+
+            console.log('saveResponse', saveResponse);
+        }
+
         setIsUploadModalOpen(false);
-    }
+    }    
 
     const header = <div className='flex flex-row items-start justify-between'>
         <p>{album.title}</p>
@@ -60,7 +82,9 @@ const AlbumItem = ({ album }: AlbumProps) => {
             <form onSubmit={(e) => deleteAlbum(e)}>
 
                 <div className="flex flex-row space-x-2">
-                    <button type="submit" className="bg-green-500 text-white p-2 w-full rounded mt-2">
+                    <button type="submit" className="bg-green-500 text-white p-2 w-full rounded mt-2"
+                        disabled={resultSavePhoto.isLoading && resultUpload.isLoading}
+                    >
                         Confirm
                     </button>
                     <button onClick={() => setIsDeleteModalOpen(false)} className="bg-red-500 text-white p-2 w-full rounded mt-2">

@@ -21,11 +21,15 @@ const photosApi = createApi({
       ],
     }),
     addPhoto: builder.mutation({
-      query: ({ album, url }: { album: Album; url: string }) => {
+      query: ({ album, url, description }: { album: Album; url: string, description: string }) => {
         return {
           url: '/Photo',
           method: 'POST',
-          body: { albumId: album.id, url },
+          body: { albumId: album.id, url, description },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
         };
       },
       invalidatesTags: (result, error, { album }) => [
@@ -41,6 +45,20 @@ const photosApi = createApi({
       },
       invalidatesTags: (result, error, { id }) => [{ type: 'Photo', id }],
     }),
+    uploadPhoto: builder.mutation({
+      query: ({ file }: { file: File }) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        return {
+          url: '/Photo/upload',
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -48,6 +66,7 @@ export const {
   useGetPhotosQuery,
   useAddPhotoMutation,
   useDeletePhotoMutation,
+  useUploadPhotoMutation,
 } = photosApi;
 
 export { photosApi };
